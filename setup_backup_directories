@@ -1,0 +1,36 @@
+#!/bin/bash
+source ./config.sh
+
+CURRENT_USER=$(whoami)
+
+if ! id "$BACKUP_USER" &>/dev/null; then
+    echo "Creating user and group: $BACKUP_USER"
+    sudo groupadd "$BACKUP_GROUP"
+    sudo useradd -g "$BACKUP_GROUP" -m "$BACKUP_USER"
+fi
+
+echo "Adding current user ($CURRENT_USER) to group $BACKUP_GROUP..."
+sudo usermod -aG "$BACKUP_GROUP" "$CURRENT_USER"
+
+DIRS=(
+    "$BASE_DIR/input"
+    "$BASE_DIR/backup"
+    "$BASE_DIR/staging"
+    "$BASE_DIR/logs"
+)
+
+for dir in "${DIRS[@]}"; do
+    mkdir -p "$dir"
+    sudo chown "$BACKUP_USER:$BACKUP_GROUP" "$dir"
+    sudo chmod 770 "$dir"
+done
+
+AUDIT_FILE="$BASE_DIR/audit.json"
+if [ ! -f "$AUDIT_FILE" ]; then
+    echo '{"runs": []}' > "$AUDIT_FILE"
+    sudo chown "$BACKUP_USER:$BACKUP_GROUP" "$AUDIT_FILE"
+    sudo chmod 660 "$AUDIT_FILE"
+fi
+
+echo "✅ Setup complete for project: $PROJECT_NAME"
+

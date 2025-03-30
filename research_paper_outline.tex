@@ -1,0 +1,62 @@
+\documentclass[12pt]{article}
+\usepackage{geometry}
+\geometry{a4paper, margin=1in}
+\usepackage{hyperref}
+\usepackage{graphicx}
+\usepackage{listings}
+\usepackage{amsmath}
+\usepackage{natbib}
+\usepackage{color}
+\hypersetup{colorlinks=true, urlcolor=blue, linkcolor=blue, citecolor=blue}
+
+\title{A Reproducible, Configurable Data Entry and Backup System:\\
+Design, Implementation, and Applications Using Literate Programming}
+\author{Roy J Wheelock}
+\date{\today}
+
+\begin{document}
+
+\maketitle
+
+\begin{abstract}
+Summarize the need for systematic data entry and reproducible backup systems. Highlight the design of a configurable, extensible system using rsync, shell scripts, Git, and literate programming, and describe deliverables and application areas.
+\end{abstract}
+
+\section{Introduction}
+Discuss the challenges of manual data entry, risk of data loss, and the importance of reproducibility. Introduce literate programming and state the goals of this project.
+
+\section{Related Work}
+Review backup tools (rsync, restic, Borg), scientific workflow systems (Snakemake, Airflow), and literate programming tools (noweb, org-mode, Jupyter).
+
+\section{System Architecture}
+Describe the directory structure and system layout. Include a diagram. Explain each component: configuration, setup, backup, recovery, audit logging, and testing.
+
+\section{Implementation Details}
+Provide technical details of shell scripts, rsync usage, JSON audit structure, testing with pytest, and CI/CD considerations.
+
+\section{Literate Programming Process}
+Describe how the system code and documentation are combined. Include examples.
+
+\section{Use Case Examples}
+Present real and hypothetical use cases: blood pressure logging, garden health monitoring, and laboratory notebooks.
+
+\section{Results and Evaluation}
+Evaluate system reliability, ease of setup, reproducibility, and testing outcomes.
+
+\section{Discussion}
+Discuss strengths, limitations, scalability, and future improvements.
+
+\section{Conclusion}
+Summarize project contributions, impact, and future directions.
+
+\bibliographystyle{plain}
+\bibliography{references}
+
+\appendix
+\section{Appendix A: Example Configuration File}
+\lstinputlisting[language=bash]{config.sh}
+
+\section{Appendix B: Audit Log Example}
+\lstinputlisting[language=json]{example_audit.json}
+
+\end{document}

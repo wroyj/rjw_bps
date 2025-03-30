@@ -1,0 +1,41 @@
+.
+├── backup.sh
+├── backup_system_package_20250324_195319.zip
+├── bp_data_entry.py
+├── config.sh
+├── data
+│   ├── audit.json
+│   ├── backup
+│   │   ├── 20250326_205157
+│   │   │   ├── bp_data.csv
+│   │   │   └── rjw_bps-2025.csv
+│   │   ├── 20250327_191709
+│   │   │   └── bp_data.csv
+│   │   ├── 20250328_152143
+│   │   │   └── bp_data.csv
+│   │   └── 20250329_015319
+│   │       ├── bp_data.csv
+│   │       └── bp_data_original_backup.csv
+│   ├── bp_data_entry_revised.ipynb
+│   ├── input
+│   │   ├── bp_data.csv
+│   │   └── bp_data_original_backup.csv
+│   ├── logs
+│   ├── staging
+│   │   ├── bp_data.csv
+│   │   └── bp_data_original_backup.csv
+│   ├── Untitled1.ipynb
+│   └── Untitled.ipynb
+├── data_entry_backup_workflow.png
+├── list_staged_data.ipynb
+├── Makefile
+├── normalize_bp_csv_debug.py
+├── normalize_bp_csv.py
+├── README_capstone_outline.md
+├── recover.sh
+├── references.bib
+├── repo
+├── research_paper_outline.tex
+└── setup_backup_directories
+
+9 directories, 29 files

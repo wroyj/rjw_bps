@@ -1,0 +1,20 @@
+{
+  "runs": [
+    {
+      "timestamp": "20250326_205157",
+      "backup_dir": "/home/rjw/rjw_bps/data/backup/20250326_205157"
+    },
+    {
+      "timestamp": "20250327_191709",
+      "backup_dir": "/home/rjw/rjw_bps/data/backup/20250327_191709"
+    },
+    {
+      "timestamp": "20250328_152143",
+      "backup_dir": "/home/rjw/rjw_bps/data/backup/20250328_152143"
+    },
+    {
+      "timestamp": "20250329_015319",
+      "backup_dir": "/home/rjw/rjw_bps/data/backup/20250329_015319"
+    }
+  ]
+}
