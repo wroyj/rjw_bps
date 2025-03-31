@@ -1,27 +1,16 @@
 #!/bin/bash
-source ./config.sh
 
-BACKUP_DIR="$BASE_DIR/backup"
-STAGING_DIR="$BASE_DIR/staging"
+BACKUP_BASE="data/backup"
+STAGING_DIR="data/staging"
+LOG_FILE="data/logs/recover.log"
 
-if [ -z "$1" ]; then
-    echo "Available backups:"
-    ls -1 "$BACKUP_DIR" | sort -r
-    echo ""
-    echo "Restoring latest backup..."
-    BACKUP_TS=$(ls -1 "$BACKUP_DIR" | sort -r | head -n 1)
-else
-    BACKUP_TS="$1"
-fi
+LATEST_BACKUP=$(ls -dt "$BACKUP_BASE"/*/ | head -n1)
 
-BACKUP_PATH="$BACKUP_DIR/$BACKUP_TS"
-
-if [ ! -d "$BACKUP_PATH" ]; then
-    echo "Backup $BACKUP_PATH not found."
+if [ -z "$LATEST_BACKUP" ]; then
+    echo "❌ No backup found." | tee -a "$LOG_FILE"
     exit 1
 fi
 
-rm -rf "$STAGING_DIR"/*
-cp -r "$BACKUP_PATH/"* "$STAGING_DIR/"
-
-echo "[$(date)] Recovered backup $BACKUP_TS to staging."
+echo "[🕓 $(date '+%Y-%m-%d %H:%M:%S')] Restoring from backup: $LATEST_BACKUP" | tee -a "$LOG_FILE"
+cp "$LATEST_BACKUP"/*.csv "$STAGING_DIR/" 2>/dev/null
+echo "[🕓 $(date '+%Y-%m-%d %H:%M:%S')] Recovery complete." >> "$LOG_FILE"

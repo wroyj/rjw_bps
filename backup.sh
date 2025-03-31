@@ -1,26 +1,15 @@
 #!/bin/bash
-source ./config.sh
 
-INPUT_DIR="$BASE_DIR/input"
-BACKUP_DIR="$BASE_DIR/backup"
-STAGING_DIR="$BASE_DIR/staging"
-AUDIT_FILE="$BASE_DIR/audit.json"
+BACKUP_DIR="data/backup/$(date '+%Y%m%d_%H%M%S')"
+INPUT_DIR="data/input"
+STAGING_DIR="data/staging"
+LOG_FILE="data/logs/backup.log"
 
-TIMESTAMP=$(date +%Y%m%d_%H%M%S)
-BACKUP_TARGET="$BACKUP_DIR/$TIMESTAMP"
+echo "[🕓 $(date '+%Y-%m-%d %H:%M:%S')] Starting backup..." >> "$LOG_FILE"
 
-echo "[$(date)] Starting backup..."
+mkdir -p "$BACKUP_DIR"
+rsync -av --progress "$INPUT_DIR/" "$BACKUP_DIR/" >> "$LOG_FILE" 2>&1
 
-rsync -av --delete "$INPUT_DIR/" "$BACKUP_TARGET/"
+cp "$BACKUP_DIR"/*.csv "$STAGING_DIR/" 2>/dev/null
 
-rm -rf "$STAGING_DIR"/*
-cp -r "$BACKUP_TARGET/"* "$STAGING_DIR/"
-
-if command -v jq > /dev/null; then
-    TEMP_FILE=$(mktemp)
-    jq --arg ts "$TIMESTAMP" --arg path "$BACKUP_TARGET"     '.runs += [{"timestamp": $ts, "backup_dir": $path}]' "$AUDIT_FILE" > "$TEMP_FILE" && mv "$TEMP_FILE" "$AUDIT_FILE"
-else
-    echo "⚠️ jq not found; skipping audit update."
-fi
-
-echo "✅ Backup complete: $BACKUP_TARGET"
+echo "[🕓 $(date '+%Y-%m-%d %H:%M:%S')] Backup complete: $BACKUP_DIR" >> "$LOG_FILE"

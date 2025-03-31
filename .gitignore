@@ -1,0 +1,13 @@
+# Ignore backups and logs
+data/backup/
+data/logs/
+data/staging/
+*.zip
+
+# Ignore Jupyter/IPython files
+.ipynb_checkpoints/
+*.ipynb
+
+# Ignore system files
+.DS_Store
+*.swp
